@@ -12,30 +12,30 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize map with a fallback view
-        var map = L.map('map').setView([0, 0], 2);
+        // Initialize the map
+        var map = L.map('map');
 
-        // Fetch GeoJSON from the same repo root
+        // Fetch GeoJSON from the same repo
         fetch("wards.geojson")
             .then(response => {
                 if (!response.ok) throw new Error("HTTP error " + response.status);
                 return response.json();
             })
             .then(data => {
-                // Add GeoJSON layer to map
+                // Add GeoJSON layer
                 var geoLayer = L.geoJSON(data, {
                     style: { color: 'blue', weight: 2, fillOpacity: 0.3 },
                     onEachFeature: function(feature, layer) {
                         if (feature.properties) {
                             let popup = Object.entries(feature.properties)
-                                .map(([k, v]) => `${k}: ${v}`)
+                                .map(([k,v]) => `${k}: ${v}`)
                                 .join("<br/>");
                             layer.bindPopup(popup);
                         }
                     }
                 }).addTo(map);
 
-                // Zoom map to fit the GeoJSON
+                // Zoom map to fit all shapes
                 map.fitBounds(geoLayer.getBounds());
             })
             .catch(err => console.error("Error loading GeoJSON:", err));
