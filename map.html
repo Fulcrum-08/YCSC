@@ -58,23 +58,16 @@
             box-shadow: 0 10px 22px rgba(0,0,0,0.25);
         }
 
-        /* MAP PAGE LAYOUT */
-        #map-container {
-            display: flex;
-            flex-direction: column;
-            margin-top: 90px; /* leave space for navbar */
-            height: calc(100vh - 90px); /* full screen minus navbar */
-        }
-
-        #map-top, #map-bottom {
-            padding: 40px;
+        /* SECTIONS */
+        #map-top, #map-bottom, #map-stats {
+            padding: 60px 20px;
             text-align: center;
             background: #eef4ee;
         }
 
-        #map-top h2, #map-bottom h2 {
+        #map-top h2, #map-bottom h2, #map-stats h2 {
             font-size: 32px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             color: #2f5d3a;
         }
 
@@ -85,15 +78,13 @@
             line-height: 1.6;
         }
 
-        #map { flex: 1; } /* map takes all remaining vertical space */
-
-        /* STATISTICS GRID */
-        #map-stats {
-            background:#eef4ee; 
-            padding: 40px 20px; 
-            text-align: center;
+        /* MAP */
+        #map {
+            width: 100%;
+            height: 600px; /* fixed height but can scroll page */
         }
 
+        /* STATISTICS GRID */
         .stats-grid {
             display:grid; 
             grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); 
@@ -121,8 +112,10 @@
             margin:0;
         }
 
-        /* RESPONSIVE PIE CHART CANVAS */
         .stat-box canvas { max-width:100px; max-height:100px; display:block; margin:0 auto; }
+
+        /* add some spacing below navbar */
+        body { padding-top: 90px; }
     </style>
 </head>
 <body>
@@ -150,70 +143,62 @@
     </div>
 </nav>
 
-<div id="map-container">
-    <!-- TOP DESCRIPTION -->
-    <div id="map-top">
-        <h2>Explore Our City Map</h2>
-        <p>
-            This interactive map displays different layers, including wards, buildings, rivers, and roads.
-            Use the layer control to toggle visibility of each feature, and click on items to see details.
-        </p>
-    </div>
+<!-- TOP DESCRIPTION -->
+<section id="map-top">
+    <h2>Explore Our City Map</h2>
+    <p>
+        This interactive map displays different layers, including wards, buildings, rivers, and roads.
+        Use the layer control to toggle visibility of each feature, and click on items to see details.
+    </p>
+</section>
 
-    <!-- LEAFLET MAP -->
-    <div id="map"></div>
+<!-- MAP -->
+<div id="map"></div>
 
-    <!-- BOTTOM DESCRIPTION -->
-    <div id="map-bottom">
-        <h2>How to Use the Map</h2>
-        <p>
-            Zoom in to view detailed structures, click features to see properties, and switch between layers
-            using the control box in the top-right corner. This map helps you understand the city's layout
-            and key points of interest.
-        </p>
-    </div>
+<!-- BOTTOM DESCRIPTION -->
+<section id="map-bottom">
+    <h2>How to Use the Map</h2>
+    <p>
+        Zoom in to view detailed structures, click features to see properties, and switch between layers
+        using the control box in the top-right corner. This map helps you understand the city's layout
+        and key points of interest.
+    </p>
+</section>
 
-    <!-- STATISTICS GRID -->
-    <div id="map-stats">
-        <h2>City Statistics</h2>
-        <div class="stats-grid">
-            <!-- Box 1: Number -->
-            <div class="stat-box">
-                <h3>Total Wards</h3>
-                <p>12</p>
-            </div>
+<!-- STATISTICS GRID -->
+<section id="map-stats">
+    <h2>City Statistics</h2>
+    <div class="stats-grid">
+        <div class="stat-box">
+            <h3>Total Wards</h3>
+            <p>12</p>
+        </div>
 
-            <!-- Box 2: Percentage -->
-            <div class="stat-box">
-                <h3>Buildings Developed</h3>
-                <p>75%</p>
-            </div>
+        <div class="stat-box">
+            <h3>Buildings Developed</h3>
+            <p>75%</p>
+        </div>
 
-            <!-- Box 3: Pie Chart -->
-            <div class="stat-box">
-                <h3>Green Spaces</h3>
-                <canvas id="pie1"></canvas>
-            </div>
+        <div class="stat-box">
+            <h3>Green Spaces</h3>
+            <canvas id="pie1"></canvas>
+        </div>
 
-            <!-- Box 4: Number -->
-            <div class="stat-box">
-                <h3>Bridges</h3>
-                <p>8</p>
-            </div>
+        <div class="stat-box">
+            <h3>Bridges</h3>
+            <p>8</p>
+        </div>
 
-            <!-- Box 5: Pie Chart -->
-            <div class="stat-box">
-                <h3>Water Coverage</h3>
-                <canvas id="pie2"></canvas>
-            </div>
+        <div class="stat-box">
+            <h3>Water Coverage</h3>
+            <canvas id="pie2"></canvas>
         </div>
     </div>
-</div>
+</section>
 
 <!-- LEAFLET JS -->
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
-    // Initialize map
     var map = L.map('map').setView([42.33, -72.68], 13);
 
     var geoLayers = {};
@@ -241,9 +226,9 @@
             .catch(err => console.error("Error loading GeoJSON:", err));
     }
 
-    addGeoJSONLayer("Ward", "wards.geojson", "green");
+    addGeoJSONLayer("Ward", "wards.geojson", "blue");
     addGeoJSONLayer("Buildings", "buildings.geojson", "red");
-    addGeoJSONLayer("River", "CTriver.geojson", "blue");
+    addGeoJSONLayer("River", "CTriver.geojson", "green");
     addGeoJSONLayer("Roads", "roads.geojson", "orange");
 
     var layerControl = L.control.layers(null, null, { collapsed: false }).addTo(map);
@@ -266,6 +251,5 @@
         options: { plugins: { legend: { display: false } }, cutout: '70%' }
     });
 </script>
-
 </body>
 </html>
