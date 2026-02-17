@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Shape Map</title>
+    <title>My Shape Map with Layers</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <style>
         #map { height: 100vh; width: 100%; }
@@ -12,40 +12,52 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize map with a default view
+        // Initialize map
         var map = L.map('map').setView([42.33, -72.68], 13);
 
-        // Load GeoJSON from GitHub Pages
-        fetch("wards.geojson")
-            .then(response => response.json())
-            .then(data => {
-                // Check that features exist
-                if (!data.features || data.features.length === 0) {
-                    console.error("No features found in GeoJSON");
-                    return;
-                }
+        // Object to store all layers
+        var geoLayers = {};
 
-                // Add GeoJSON layer
-                var geoLayer = L.geoJSON(data, {
-                    style: {
-                        color: 'blue',
-                        weight: 2,
-                        fillOpacity: 0.3
-                    },
-                    onEachFeature: function(feature, layer) {
-                        if (feature.properties) {
-                            const popup = Object.entries(feature.properties)
-                                .map(([k, v]) => `${k}: ${v}`)
-                                .join("<br/>");
-                            layer.bindPopup(popup);
+        // Function to load a GeoJSON file and add it as a layer
+        function addGeoJSONLayer(name, url, color) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var layer = L.geoJSON(data, {
+                        style: {
+                            color: color,
+                            weight: 2,
+                            fillOpacity: 0.3
+                        },
+                        onEachFeature: function(feature, layer) {
+                            if (feature.properties) {
+                                const popup = Object.entries(feature.properties)
+                                    .map(([k,v]) => `${k}: ${v}`)
+                                    .join("<br/>");
+                                layer.bindPopup(popup);
+                            }
                         }
-                    }
-                }).addTo(map);
+                    });
+                    geoLayers[name] = layer;  // store the layer
+                    layer.addTo(map);          // optionally add it by default
+                    map.fitBounds(layer.getBounds());
+                    updateLayerControl();
+                })
+                .catch(err => console.error("Error loading GeoJSON:", err));
+        }
 
-                // Fit the map to the bounds of the GeoJSON
-                map.fitBounds(geoLayer.getBounds());
-            })
-            .catch(err => console.error("Error loading GeoJSON:", err));
+        // Add your GeoJSON files here
+        addGeoJSONLayer("Ward 6A", "wards.geojson", "blue");
+        addGeoJSONLayer("Other Ward", "other_wards.geojson", "red"); // example
+
+        // Layer control
+        var layerControl = L.control.layers(null, null, { collapsed: false }).addTo(map);
+
+        // Update layer control once layers are loaded
+        function updateLayerControl() {
+            layerControl.remove(); // remove old control
+            layerControl = L.control.layers(null, geoLayers, { collapsed: false }).addTo(map);
+        }
     </script>
 </body>
 </html>
