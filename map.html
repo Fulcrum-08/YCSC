@@ -12,15 +12,16 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Fallback view while loading
-        var map = L.map('map').setView([42.33, -72.68], 12); // approximate center of your wards
+        // Initialize map with a default view
+        var map = L.map('map').setView([42.33, -72.68], 13);
 
+        // Load GeoJSON from GitHub Pages
         fetch("wards.geojson")
             .then(response => response.json())
             .then(data => {
-                // Make sure the data has features
+                // Check that features exist
                 if (!data.features || data.features.length === 0) {
-                    console.error("No features in GeoJSON");
+                    console.error("No features found in GeoJSON");
                     return;
                 }
 
@@ -33,7 +34,7 @@
                     },
                     onEachFeature: function(feature, layer) {
                         if (feature.properties) {
-                            let popup = Object.entries(feature.properties)
+                            const popup = Object.entries(feature.properties)
                                 .map(([k, v]) => `${k}: ${v}`)
                                 .join("<br/>");
                             layer.bindPopup(popup);
@@ -41,7 +42,7 @@
                     }
                 }).addTo(map);
 
-                // Zoom map to fit the polygons
+                // Fit the map to the bounds of the GeoJSON
                 map.fitBounds(geoLayer.getBounds());
             })
             .catch(err => console.error("Error loading GeoJSON:", err));
