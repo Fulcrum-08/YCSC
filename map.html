@@ -4,7 +4,7 @@
     <title>My Shape Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <style>
-        #map { height: 100vh; width: 100%; background: #ffffff; }
+        #map { height: 100vh; width: 100%; }
     </style>
 </head>
 <body>
@@ -12,30 +12,36 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize the map
-        var map = L.map('map');
+        // Fallback view while loading
+        var map = L.map('map').setView([42.33, -72.68], 12); // approximate center of your wards
 
-        // Fetch GeoJSON from the same repo
         fetch("wards.geojson")
-            .then(response => {
-                if (!response.ok) throw new Error("HTTP error " + response.status);
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
+                // Make sure the data has features
+                if (!data.features || data.features.length === 0) {
+                    console.error("No features in GeoJSON");
+                    return;
+                }
+
                 // Add GeoJSON layer
                 var geoLayer = L.geoJSON(data, {
-                    style: { color: 'blue', weight: 2, fillOpacity: 0.3 },
+                    style: {
+                        color: 'blue',
+                        weight: 2,
+                        fillOpacity: 0.3
+                    },
                     onEachFeature: function(feature, layer) {
                         if (feature.properties) {
                             let popup = Object.entries(feature.properties)
-                                .map(([k,v]) => `${k}: ${v}`)
+                                .map(([k, v]) => `${k}: ${v}`)
                                 .join("<br/>");
                             layer.bindPopup(popup);
                         }
                     }
                 }).addTo(map);
 
-                // Zoom map to fit all shapes
+                // Zoom map to fit the polygons
                 map.fitBounds(geoLayer.getBounds());
             })
             .catch(err => console.error("Error loading GeoJSON:", err));
