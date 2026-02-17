@@ -26,10 +26,12 @@
     p {font-size:18px; max-width:800px; line-height:1.6; margin-bottom:20px;}
     .card {background:white; padding:18px; border-radius:12px; box-shadow:0 6px 18px rgba(15,23,42,0.04); margin-bottom:24px;}
     
-    /* PRODUCTS GRID */
+    /* DEPARTMENT BAR */
     .dept-bar {display:flex; gap:12px; margin-bottom:16px; flex-wrap:wrap;}
     .dept-bar button {padding:8px 14px; border-radius:999px; border:1px solid rgba(16,24,40,0.06); background:white; cursor:pointer; font-weight:600;}
     .dept-bar button.active {background:#16a34a;color:white;}
+    
+    /* PRODUCTS GRID */
     .products {display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px;}
     .product-card {background:white;padding:14px;border-radius:10px;box-shadow:0 6px 14px rgba(15,23,42,0.03);cursor:pointer;transition: transform .12s ease,border .12s ease; border:1px solid transparent;}
     .product-card:hover {transform:translateY(-4px);}
@@ -76,13 +78,15 @@
 
 <main>
     <h2>Environmental Impact Store</h2>
-    <p>Select products from stores and see their environmental impact. Green = low impact, Red = high impact.</p>
-    
+    <p>Select products and see their environmental impact. Green = low, Red = high.</p>
+
+    <!-- DEPARTMENTS AND PRODUCTS -->
     <div class="card">
         <div class="dept-bar" id="deptBar"></div>
         <div id="productGrid" class="products"></div>
     </div>
 
+    <!-- SELECTED ITEMS -->
     <div class="card selected-list" id="selectedList">
         <div style="font-weight:700;margin-bottom:6px">Selected Items</div>
         <div id="selectedItemsContainer"></div>
@@ -90,6 +94,7 @@
         <button class="clear-btn" id="clearAllBtn">Clear All</button>
     </div>
 
+    <!-- RECOMMENDATIONS -->
     <div class="card recommendations" id="recommendations" style="display:none">
         <div style="font-weight:700">Recommended Lower-Impact Alternatives</div>
         <div class="rec-list" id="recList"></div>
@@ -138,17 +143,17 @@ let selectedDepartment = selectedStore.departments[0];
 let selectedProducts = [];
 let activeRecommendation = null;
 
+// ====== HELPERS ======
 function findProductById(id){for(const s of stores) for(const d of s.departments) for(const p of d.products) if(p.id===id) return p; return null;}
 function getAllSelectedProducts(){return selectedProducts.map(id=>findProductById(id)).filter(Boolean);}
 function getImpactColor(score){if(score<=5)return'green'; if(score<=12)return'orange'; return'red';}
 function getImpactLabel(score){if(score<=5)return'Low'; if(score<=12)return'Medium'; return'High';}
-
 function getRecommendationsFor(product){
     const all = stores.flatMap(s=>s.departments.flatMap(d=>d.products));
-    return all.filter(p=>p.id!==product.id && p.tag===product.tag && p.impact<product.impact)
-              .sort((a,b)=>a.impact-b.impact).slice(0,3);
+    return all.filter(p=>p.id!==product.id && p.tag===product.tag && p.impact<product.impact).sort((a,b)=>a.impact-b.impact).slice(0,3);
 }
 
+// ====== RENDER FUNCTIONS ======
 function renderDepartments(){
     const bar=document.getElementById('deptBar'); bar.innerHTML='';
     selectedStore.departments.forEach(dep=>{
@@ -166,10 +171,8 @@ function renderProducts(){
         const colorClass=getImpactColor(p.impact);
         el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700">${p.name}</div><div class="badge ${colorClass}">${getImpactLabel(p.impact)}</div></div><div class="prod-meta">${p.brand} • ${p.packaging} • $${p.price}</div>`;
         el.onclick=()=>{
-            if(selectedProducts.includes(p.id)){
-                selectedProducts = selectedProducts.filter(x=>x!==p.id);
-                activeRecommendation=null;
-            } else {selectedProducts.push(p.id); activeRecommendation=p;}
+            if(selectedProducts.includes(p.id)){selectedProducts = selectedProducts.filter(x=>x!==p.id); activeRecommendation=null;}
+            else {selectedProducts.push(p.id); activeRecommendation=p;}
             renderProducts(); renderSelectedList(); showRecommendations();
         };
         grid.appendChild(el);
@@ -213,9 +216,7 @@ function showRecommendations(){
 }
 
 function hideRecommendations(){document.getElementById('recommendations').style.display='none';}
-
 function setupClear(){document.getElementById('clearAllBtn').onclick=()=>{selectedProducts=[]; activeRecommendation=null; renderProducts(); renderSelectedList(); hideRecommendations();};}
-
 function init(){renderDepartments(); renderProducts(); renderSelectedList(); setupClear(); hideRecommendations();}
 
 init();
