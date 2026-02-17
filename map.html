@@ -8,14 +8,12 @@
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <style>
         /* BASIC RESET & BODY */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, Helvetica, sans-serif;
             scroll-behavior: smooth;
@@ -23,7 +21,7 @@
             background-color: #f5f7f3;
         }
 
-        /* NAVBAR (matches index page) */
+        /* NAVBAR */
         nav {
             position: fixed;
             top: 0;
@@ -36,36 +34,13 @@
             z-index: 1000;
         }
 
-        nav h1 {
-            color: #f1f5ef;
-            font-size: 22px;
-            margin-right: 20px;
-        }
-
-        .nav-left,
-        .nav-right {
-            display: flex;
-            gap: 22px;
-            align-items: center;
-        }
-
+        nav h1 { color: #f1f5ef; font-size: 22px; margin-right: 20px; }
+        .nav-left, .nav-right { display: flex; gap: 22px; align-items: center; }
         .nav-left { justify-content: flex-start; }
         .nav-right { justify-content: flex-end; }
+        .nav-center { display: flex; gap: 18px; justify-content: center; }
 
-        .nav-center {
-            display: flex;
-            gap: 18px;
-            justify-content: center;
-        }
-
-        nav a {
-            color: #e8f2ea;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 6px 8px;
-            transition: color 0.3s ease;
-        }
-
+        nav a { color: #e8f2ea; text-decoration: none; font-size: 16px; padding: 6px 8px; transition: color 0.3s ease; }
         nav a:hover { color: #cfe3d4; }
 
         .main-tab {
@@ -110,9 +85,44 @@
             line-height: 1.6;
         }
 
-        #map {
-            flex: 1; /* map takes all remaining vertical space */
+        #map { flex: 1; } /* map takes all remaining vertical space */
+
+        /* STATISTICS GRID */
+        #map-stats {
+            background:#eef4ee; 
+            padding: 40px 20px; 
+            text-align: center;
         }
+
+        .stats-grid {
+            display:grid; 
+            grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); 
+            gap:20px; 
+            justify-items:center;
+            margin-top:20px;
+        }
+
+        .stat-box {
+            background:white; 
+            padding:20px; 
+            border-radius:10px; 
+            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+            width:100%;
+        }
+
+        .stat-box h3 {
+            color:#2f5d3a;
+            margin-bottom:10px;
+        }
+
+        .stat-box p {
+            font-size:28px; 
+            font-weight:bold;
+            margin:0;
+        }
+
+        /* RESPONSIVE PIE CHART CANVAS */
+        .stat-box canvas { max-width:100px; max-height:100px; display:block; margin:0 auto; }
     </style>
 </head>
 <body>
@@ -162,6 +172,42 @@
             and key points of interest.
         </p>
     </div>
+
+    <!-- STATISTICS GRID -->
+    <div id="map-stats">
+        <h2>City Statistics</h2>
+        <div class="stats-grid">
+            <!-- Box 1: Number -->
+            <div class="stat-box">
+                <h3>Total Wards</h3>
+                <p>12</p>
+            </div>
+
+            <!-- Box 2: Percentage -->
+            <div class="stat-box">
+                <h3>Buildings Developed</h3>
+                <p>75%</p>
+            </div>
+
+            <!-- Box 3: Pie Chart -->
+            <div class="stat-box">
+                <h3>Green Spaces</h3>
+                <canvas id="pie1"></canvas>
+            </div>
+
+            <!-- Box 4: Number -->
+            <div class="stat-box">
+                <h3>Bridges</h3>
+                <p>8</p>
+            </div>
+
+            <!-- Box 5: Pie Chart -->
+            <div class="stat-box">
+                <h3>Water Coverage</h3>
+                <canvas id="pie2"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- LEAFLET JS -->
@@ -195,9 +241,9 @@
             .catch(err => console.error("Error loading GeoJSON:", err));
     }
 
-    addGeoJSONLayer("Ward", "wards.geojson", "blue");
+    addGeoJSONLayer("Ward", "wards.geojson", "green");
     addGeoJSONLayer("Buildings", "buildings.geojson", "red");
-    addGeoJSONLayer("River", "CTriver.geojson", "green");
+    addGeoJSONLayer("River", "CTriver.geojson", "blue");
     addGeoJSONLayer("Roads", "roads.geojson", "orange");
 
     var layerControl = L.control.layers(null, null, { collapsed: false }).addTo(map);
@@ -206,6 +252,19 @@
         layerControl.remove();
         layerControl = L.control.layers(null, geoLayers, { collapsed: false }).addTo(map);
     }
+
+    // PIE CHARTS
+    new Chart(document.getElementById('pie1'), {
+        type: 'doughnut',
+        data: { labels: ['Parks', 'Other Land'], datasets: [{ data: [40,60], backgroundColor:['#6a8f5e','#cfe3d4'] }] },
+        options: { plugins: { legend: { display: false } }, cutout: '70%' }
+    });
+
+    new Chart(document.getElementById('pie2'), {
+        type: 'doughnut',
+        data: { labels: ['Rivers & Lakes', 'Land'], datasets: [{ data: [25,75], backgroundColor:['#3a6b4f','#eef4ee'] }] },
+        options: { plugins: { legend: { display: false } }, cutout: '70%' }
+    });
 </script>
 
 </body>
