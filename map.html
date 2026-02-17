@@ -15,7 +15,7 @@
         var map = L.map('map');
 
         // Load your GeoJSON
-        fetch("C:\\Users\\mazen\\Downloads\\YCSC\\wards.geojson")  // Make sure this matches your file
+        fetch("C:\\Users\\mazen\\OneDrive\\Documents\\GitHub\\YCSC\\wards.geojson")  // Make sure this matches your file
             .then(response => response.json())
             .then(data => {
                 var geoLayer = L.geoJSON(data, {
