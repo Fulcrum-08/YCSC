@@ -4,10 +4,45 @@
     <title>My Shape Map with Layers</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
     <style>
-        #map { height: 100vh; width: 100%; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        #map {
+            flex: 1; /* takes up remaining space */
+            width: 100%;
+        }
+
+        .description {
+            max-width: 800px;
+            margin: 10px auto;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <h1>City Map with Layers</h1>
+    </header>
+    <div class="description">
+        <p>
+            This interactive map shows different layers of the city, including wards, buildings, rivers, and roads.
+            Click on any feature to see more information about it. You can toggle layers using the layer control box
+            on the top-right corner of the map.
+        </p>
+    </div>
     <div id="map"></div>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
@@ -49,8 +84,8 @@
         // Add your GeoJSON files here
         addGeoJSONLayer("Ward", "wards.geojson", "blue");
         addGeoJSONLayer("Buildings", "buildings.geojson", "red");
-        addGeoJSONLayer("River", "CTriver.geojson", "red"); // example
-          addGeoJSONLayer("Roads", "roads.geojson", "red"); // example
+        addGeoJSONLayer("River", "CTriver.geojson", "red");
+        addGeoJSONLayer("Roads", "roads.geojson", "red");
 
         // Layer control
         var layerControl = L.control.layers(null, null, { collapsed: false }).addTo(map);
