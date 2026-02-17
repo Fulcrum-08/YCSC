@@ -12,16 +12,17 @@
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize map with a default view
-        var map = L.map('map').setView([0, 0], 2); // fallback
+        // Initialize map with a fallback view
+        var map = L.map('map').setView([0, 0], 2);
 
-        // Fetch GeoJSON relative to GitHub Pages
+        // Fetch GeoJSON from the same repo root
         fetch("wards.geojson")
             .then(response => {
                 if (!response.ok) throw new Error("HTTP error " + response.status);
                 return response.json();
             })
             .then(data => {
+                // Add GeoJSON layer to map
                 var geoLayer = L.geoJSON(data, {
                     style: { color: 'blue', weight: 2, fillOpacity: 0.3 },
                     onEachFeature: function(feature, layer) {
@@ -34,7 +35,7 @@
                     }
                 }).addTo(map);
 
-                // Zoom to fit all shapes
+                // Zoom map to fit the GeoJSON
                 map.fitBounds(geoLayer.getBounds());
             })
             .catch(err => console.error("Error loading GeoJSON:", err));
