@@ -279,7 +279,7 @@ function addOverlay(name, url, color) {
     });
 }
 
-const layerControl = L.control.layers(null, overlays, { collapsed:false }).addTo(map);
+const layerControl = L.control.layers(null, overlays, { collapsed:true }).addTo(map);
 
 addWardLayer();
 addOverlay("Buildings","buildings.geojson","red");
