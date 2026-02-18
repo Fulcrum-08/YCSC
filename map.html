@@ -58,35 +58,6 @@ nav a {
     border-radius: 999px;
     font-weight: bold;
 }
-/* MINIMAL LEAFLET CHECKBOXES */
-.leaflet-control-layers {
-    background: rgba(255,255,255,0.9);
-    border-radius: 6px;
-    padding: 4px 6px;
-    font-size: 13px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-.leaflet-control-layers label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 2px 0;
-    cursor: pointer;
-}
-
-.leaflet-control-layers input[type="checkbox"] {
-    width: 12px;
-    height: 12px;
-    margin: 0;
-    accent-color: #2f5d3a; /* subtle brand color */
-}
-
-.leaflet-control-layers span {
-    line-height: 1;
-    font-size: 12px;
-    color: #2f3e2f;
-}
 
 
 /* SECTIONS */
@@ -231,6 +202,10 @@ section h2 {
 </div>
 </section>
 
+<section>
+<h2>Explore Our City Map</h2>
+<p>Hover over a ward to update the information banner.</p>
+</section>
 <script>
 // MAP
 const map = L.map('map').setView([42.33, -72.68], 13);
