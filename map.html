@@ -121,34 +121,14 @@ section h2{
     box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
+.stat-box h3{
+    margin-bottom:12px;
+    color:#2f5d3a;
+}
+
 .stat-box canvas{
     max-width:120px;
     margin:auto;
-}
-
-/* ===== MINIMAL LAYER CONTROL ===== */
-.leaflet-control-layers{
-    background:transparent;
-    box-shadow:none;
-    border:none;
-    padding:6px;
-}
-
-.leaflet-control-layers-expanded{
-    background:transparent;
-}
-
-.leaflet-control-layers label{
-    font-size:14px;
-    color:#2f5d3a;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    cursor:pointer;
-}
-
-.leaflet-control-layers input{
-    accent-color:#2f5d3a;
 }
 </style>
 </head>
@@ -193,25 +173,39 @@ section h2{
 <section>
 <h2>City Statistics</h2>
 <div class="stats-grid">
-    <div class="stat-box"><canvas id="pie0"></canvas></div>
-    <div class="stat-box"><canvas id="pie1"></canvas></div>
-    <div class="stat-box"><canvas id="pie2"></canvas></div>
-    <div class="stat-box"><canvas id="pie3"></canvas></div>
-    <div class="stat-box"><canvas id="pie4"></canvas></div>
+    <div class="stat-box">
+        <h3>Wards Completed</h3>
+        <canvas id="pie0"></canvas>
+    </div>
+    <div class="stat-box">
+        <h3>Buildings Developed</h3>
+        <canvas id="pie1"></canvas>
+    </div>
+    <div class="stat-box">
+        <h3>Green Space Coverage</h3>
+        <canvas id="pie2"></canvas>
+    </div>
+    <div class="stat-box">
+        <h3>Bridges Completed</h3>
+        <canvas id="pie3"></canvas>
+    </div>
+    <div class="stat-box">
+        <h3>Water Coverage</h3>
+        <canvas id="pie4"></canvas>
+    </div>
 </div>
 </section>
 
 <script>
 /* MAP */
-const map=L.map('map').setView([42.33,-72.68],13);
-const overlays={};
-
-const layerControl=L.control.layers(null,overlays,{collapsed:false}).addTo(map);
+const map = L.map('map').setView([42.33,-72.68],13);
+const overlays = {};
+const layerControl = L.control.layers(null, overlays).addTo(map);
 
 fetch("wards.geojson")
 .then(r=>r.json())
 .then(data=>{
-    const wardLayer=L.geoJSON(data,{
+    const wardLayer = L.geoJSON(data,{
         style:{color:"#2f5d3a",weight:2,fillOpacity:.3},
         onEachFeature:(f,l)=>{
             l.on({
@@ -220,9 +214,9 @@ fetch("wards.geojson")
                     l.bringToFront();
 
                     wardName.textContent = f.properties.name || "Ward";
-                    bPop.textContent     = f.properties.population ?? "N/A";
-                    bArea.textContent    = f.properties.area ?? "N/A";
-                    bProj.textContent    = f.properties.projects ?? "N/A";
+                    bPop.textContent  = f.properties.population ?? "N/A";
+                    bArea.textContent = f.properties.area ?? "N/A";
+                    bProj.textContent = f.properties.projects ?? "N/A";
 
                     mapBanner.style.display="block";
                 },
@@ -241,8 +235,8 @@ function addOverlay(name,url,color){
     fetch(url)
     .then(r=>r.json())
     .then(d=>{
-        overlays[name]=L.geoJSON(d,{style:{color,weight:2}});
-        layerControl.addOverlay(overlays[name],name);
+        overlays[name] = L.geoJSON(d,{style:{color,weight:2}});
+        layerControl.addOverlay(overlays[name], name);
     });
 }
 
