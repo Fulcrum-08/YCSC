@@ -198,9 +198,9 @@ section h2 {
     <div class="map-banner">
         <h3 id="wardName">Hover over a ward</h3>
         <div class="stats">
-            <div><strong id="bPop">—</strong><br>Population</div>
+            <div><strong id="bPop">—</strong><br>Buildings</div>
             <div><strong id="bArea">—</strong><br>Area</div>
-            <div><strong id="bProj">—</strong><br>Projects</div>
+            <div><strong id="bProj">—</strong><br>Carbon Emissions</div>
         </div>
     </div>
 </div>
@@ -253,9 +253,9 @@ function addWardLayer() {
                         layer.setStyle({ weight: 4, fillOpacity: 0.6 });
                         layer.bringToFront();
                         wardName.textContent = feature.properties.WardPrec || "Ward";
-                        bPop.textContent = feature.properties.population || "N/A";
+                        bPop.textContent = feature.properties.buildings || "N/A";
                         bArea.textContent = feature.properties.area || "N/A";
-                        bProj.textContent = feature.properties.projects || "N/A";
+                        bProj.textContent = feature.properties.carbon || "N/A";
                     },
                     mouseout: () => {
                         wardLayer.resetStyle(layer);
