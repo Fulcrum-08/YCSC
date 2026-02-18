@@ -201,7 +201,24 @@ section h2{
 const map = L.map('map').setView([42.33,-72.68],13);
 const overlays = {};
 const layerControl = L.control.layers(null, overlays).addTo(map);
-
+const wardStats = {
+  "Ward 1": {
+    population: 12450,
+    area: "2.3",
+    projects: 6
+  },
+  "Ward 2": {
+    population: 9800,
+    area: "1.8",
+    projects: 4
+  },
+  "Ward 3": {
+    population: 15200,
+    area: "3.1",
+    projects: 9
+  }
+  // add more wards here
+};
 fetch("wards.geojson")
 .then(r=>r.json())
 .then(data=>{
@@ -209,17 +226,21 @@ fetch("wards.geojson")
         style:{color:"#2f5d3a",weight:2,fillOpacity:.3},
         onEachFeature:(f,l)=>{
             l.on({
-                mouseover:()=>{
-                    l.setStyle({weight:4,fillOpacity:.6});
-                    l.bringToFront();
+               mouseover:()=>{
+    l.setStyle({weight:4,fillOpacity:.6});
+    l.bringToFront();
 
-                    wardName.textContent = f.properties.name || "Ward";
-                    bPop.textContent  = f.properties.population ?? "N/A";
-                    bArea.textContent = f.properties.area ?? "N/A";
-                    bProj.textContent = f.properties.projects ?? "N/A";
+    const name = f.properties.name || "Unknown Ward";
+    const data = wardStats[name] || {};
 
-                    mapBanner.style.display="block";
-                },
+    wardName.textContent = name;
+    bPop.textContent  = data.population ?? "N/A";
+    bArea.textContent = data.area ?? "N/A";
+    bProj.textContent = data.projects ?? "N/A";
+
+    mapBanner.style.display="block";
+},
+
                 mouseout:()=>{
                     wardLayer.resetStyle(l);
                     mapBanner.style.display="none";
