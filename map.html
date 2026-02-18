@@ -222,7 +222,7 @@ function addWardLayer() {
                     mouseover: () => {
                         layer.setStyle({ weight: 4, fillOpacity: 0.6 });
                         layer.bringToFront();
-                        wardName.textContent = feature.properties.name || "Ward";
+                        wardName.textContent = feature.properties.WardPrec || "Ward";
                         bPop.textContent = feature.properties.population || "N/A";
                         bArea.textContent = feature.properties.area || "N/A";
                         bProj.textContent = feature.properties.projects || "N/A";
