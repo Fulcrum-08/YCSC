@@ -173,89 +173,91 @@
             font-size: 14px;
         }
     </style>
-</head>
-
-<body>
-
-<nav>
-    <div class="nav-left">
-        <h1>Northampton Climate Solutions</h1>
-        <a href="index.html#home">Home</a>
-        <a href="index.html#mission">Mission</a>
-        <a href="index.html#team">Team</a>
-    </div>
-
-    <div class="nav-center">
-        <a href="programs.html" class="main-tab">Programs</a>
-        <a href="map.html" class="main-tab">Map</a>
-        <a href="Shoping_Hacks.html" class="main-tab">Shop</a>
-    </div>
-
-    <div class="nav-right">
-        <a href="index.html#about">About</a>
-        <a href="index.html#contact">Contact</a>
-    </div>
-</nav>
-
 <header>
-    <h2>Our Programs</h2>
+    <h2>Mass Save Programs</h2>
     <p>
-        Practical solutions to reduce emissions, lower energy costs,
-        and improve comfort for homes and communities.
+        Through the Mass Save® Community First Partnership, Northampton residents
+        can access no-cost and reduced-cost energy upgrades that improve comfort,
+        lower utility bills, and reduce emissions.
     </p>
+
+    <div style="margin-top: 25px;">
+        <a href="https://cfp.masssave.com/?campaign=701Rk00000mU7OgIAK" target="_blank">
+            <button class="learn-more" style="padding: 12px 22px;">
+                Schedule a No-Cost Energy Assessment
+            </button>
+        </a>
+    </div>
 </header>
 
 <section>
-    <h2>Available Programs</h2>
+    <h2>Available Programs For Everyone</h2>
 
     <div class="program-grid">
 
-        <!-- HEAT PUMPS -->
         <div class="program">
-            <h3>Heat Pumps</h3>
+            <h3>No-Cost Home Energy Assessment</h3>
             <p>
-                High-efficiency electric heating and cooling systems.
+                A free evaluation of your home's energy use and savings opportunities.
             </p>
 
             <div class="program-details">
                 <p>
-                    Heat pumps move heat instead of creating it, making them
-                    one of the most energy-efficient technologies available.
+                    This is the first step in the Mass Save program. A specialist evaluates
+                    your home and identifies ways to improve efficiency.
                 </p>
                 <ul>
-                    <li>Provide heating and cooling</li>
-                    <li>Reduce fossil fuel use</li>
-                    <li>Lower long-term energy costs</li>
-                    <li>Eligible for rebates and incentives</li>
+                    <li>100% free for most households</li>
+                    <li>Includes instant energy-saving upgrades</li>
+                    <li>Unlocks access to rebates and incentives</li>
                 </ul>
             </div>
 
             <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
         </div>
 
-        <!-- AIR SEALING -->
         <div class="program">
-            <h3>Air Sealing</h3>
+            <h3>No-Cost Air Sealing</h3>
             <p>
-                Reduces drafts and energy loss throughout a home.
+                Seals leaks to prevent heat loss and drafts.
             </p>
 
             <div class="program-details">
                 <p>
-                    Air sealing targets leaks around doors, windows,
-                    attics, and basements to keep conditioned air inside.
+                    Air sealing is often provided at no cost and reduces energy waste
+                    immediately by closing gaps in your home.
                 </p>
                 <ul>
                     <li>Improves comfort</li>
-                    <li>Reduces heating and cooling demand</li>
-                    <li>Works well with insulation upgrades</li>
+                    <li>Reduces heating and cooling costs</li>
+                    <li>Done during or after assessment</li>
                 </ul>
             </div>
 
             <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
         </div>
 
-        <!-- INSULATION -->
+        <div class="program">
+            <h3>Heat Pump Incentives</h3>
+            <p>
+                Rebates for efficient electric heating and cooling systems.
+            </p>
+
+            <div class="program-details">
+                <p>
+                    Heat pumps are highly efficient systems that replace fossil fuel heating.
+                    Mass Save offers strong rebates depending on eligibility.
+                </p>
+                <ul>
+                    <li>Heating and cooling in one system</li>
+                    <li>Lower long-term costs</li>
+                    <li>Large rebates available</li>
+                </ul>
+            </div>
+
+            <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
+        </div>
+
         <div class="program">
             <h3>Insulation Upgrades</h3>
             <p>
@@ -264,57 +266,34 @@
 
             <div class="program-details">
                 <p>
-                    Insulation upgrades prevent heat transfer and reduce
-                    energy waste year-round.
+                    Insulation works with air sealing to reduce energy loss and
+                    improve efficiency year-round.
                 </p>
                 <ul>
                     <li>Attic, wall, and basement insulation</li>
                     <li>Lower utility bills</li>
-                    <li>Long-lasting energy savings</li>
+                    <li>Long-term savings</li>
                 </ul>
             </div>
 
             <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
         </div>
 
-        <!-- SOLAR -->
         <div class="program">
-            <h3>Solar Energy</h3>
+            <h3>0% HEAT Loan</h3>
             <p>
-                Clean, renewable electricity from the sun.
+                Interest-free financing for energy improvements.
             </p>
 
             <div class="program-details">
                 <p>
-                    Solar panels reduce dependence on the grid and
-                    provide long-term clean energy.
+                    The HEAT Loan helps cover upfront costs for upgrades like
+                    heat pumps and insulation.
                 </p>
                 <ul>
-                    <li>Lower electricity costs</li>
-                    <li>Reduce carbon footprint</li>
-                    <li>Net metering options available</li>
-                </ul>
-            </div>
-
-            <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
-        </div>
-
-        <!-- ENERGY AUDITS -->
-        <div class="program">
-            <h3>Home Energy Audits</h3>
-            <p>
-                Identify inefficiencies and energy-saving opportunities.
-            </p>
-
-            <div class="program-details">
-                <p>
-                    Energy audits assess insulation, air leakage,
-                    heating systems, and appliances.
-                </p>
-                <ul>
-                    <li>Personalized upgrade recommendations</li>
-                    <li>Improves comfort and efficiency</li>
-                    <li>First step toward electrification</li>
+                    <li>0% interest financing</li>
+                    <li>Makes upgrades more affordable</li>
+                    <li>Available after assessment</li>
                 </ul>
             </div>
 
@@ -323,24 +302,4 @@
 
     </div>
 </section>
-
-<footer>
-    © 2026 Northampton Climate Solutions
-</footer>
-
-<script>
-function toggleProgram(button) {
-    const details = button.previousElementSibling;
-
-    if (details.style.maxHeight) {
-        details.style.maxHeight = null;
-        button.textContent = "Learn More";
-    } else {
-        details.style.maxHeight = details.scrollHeight + "px";
-        button.textContent = "Show Less";
-    }
-}
-</script>
-
-</body>
 </html>
