@@ -172,13 +172,49 @@
             padding: 30px;
             font-size: 14px;
         }
+
+
     </style>
+
+<script>
+function toggleProgram(button) {
+    const details = button.previousElementSibling;
+    if (details.style.maxHeight) {
+        details.style.maxHeight = null;
+    } else {
+        details.style.maxHeight = details.scrollHeight + "px";
+    }
+}
+</script>
+
+<body>
+
+<nav>
+    <div class="nav-left">
+        <h1>Northampton Climate Solutions</h1>
+        <a href="index.html#home">Home</a>
+        <a href="index.html#mission">Mission</a>
+        <a href="index.html#team">Team</a>
+    </div>
+
+    <div class="nav-center">
+        <a href="programs.html" class="main-tab">Programs</a>
+        <a href="map.html" class="main-tab">Map</a>
+        <a href="Shoping_Hacks.html" class="main-tab">Shop</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+    </div>
+</nav>
+<!-- HEADER -->
 <header>
     <h2>Mass Save Programs</h2>
     <p>
-        Through the Mass Save® Community First Partnership, Northampton residents
-        can access no-cost and reduced-cost energy upgrades that improve comfort,
-        lower utility bills, and reduce emissions.
+        Through the Mass Save® Community First Partnership, residents of Northampton
+        can access no-cost and reduced-cost energy upgrades. These programs are designed
+        to improve home comfort, lower utility bills, and reduce environmental impact.
     </p>
 
     <div style="margin-top: 25px;">
@@ -191,30 +227,45 @@
 </header>
 
 <section>
-    <h2>Available Programs For Everyone</h2>
-      <p>
-     These programs are crated through Northampson compunity first partnership below are programs you are elgible for by being a Renters, owners and landlords of single-family homes, apartments or condos in buildings with 1-4 units. The prosses starts with scheduling a no cost energy assesmnt above.
-.
+    <h2>Available Programs for All Households</h2>
+    <p>
+        These programs are available to renters, homeowners, and landlords of
+        1–4 unit buildings in Northampton. The process begins with a no-cost
+        Home Energy Assessment, where a specialist evaluates your home and
+        recommends upgrades.
     </p>
-
 
     <div class="program-grid">
 
         <div class="program">
-            <h3>Rebates on high-efficiency appliances and heating and cooling equipment, including incentives for heat pumps</h3>
+            <h3>Home Energy Assessment (No-Cost)</h3>
             <p>
-                A free evaluation of your home's energy use and savings opportunities.
+                A professional evaluation of your home's energy use and efficiency opportunities.
             </p>
 
             <div class="program-details">
                 <p>
-                    This is the first step in the Mass Save program. A specialist evaluates
-                    your home and identifies ways to improve efficiency.
+                    During an assessment, an Energy Specialist will seek out energy-saving opportunities, recommend upgrades, and help you navigate available rebates, incentives,0% HEAT Loan Financing. After an assessment, you will receive a Decarbonization Report highlighting the rebates and incentives you qualify for. 
+            </div>
+
+            <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
+        </div>
+
+        <div class="program">
+            <h3>Air Sealing</h3>
+            <p>
+                Seals leaks and drafts to prevent heat loss and improve efficiency.
+            </p>
+
+            <div class="program-details">
+                <p>
+                    Air sealing closes gaps around doors, windows, attics, and basements
+                    to stop unwanted air movement.
                 </p>
                 <ul>
-                    <li>100% free for most households</li>
-                    <li>Includes instant energy-saving upgrades</li>
-                    <li>Unlocks access to rebates and incentives</li>
+                    <li>Often provided at no cost</li>
+                    <li>Immediate energy savings</li>
+                    <li>Improves comfort year-round</li>
                 </ul>
             </div>
 
@@ -222,20 +273,20 @@
         </div>
 
         <div class="program">
-            <h3>No-Cost Air Sealing</h3>
+            <h3>Rebates on Heating, Cooling, and Appliances</h3>
             <p>
-                Seals leaks to prevent heat loss and drafts.
+                Financial incentives for upgrading to high-efficiency equipment.
             </p>
 
             <div class="program-details">
                 <p>
-                    Air sealing is often provided at no cost and reduces energy waste
-                    immediately by closing gaps in your home.
+                    Mass Save offers rebates for energy-efficient systems such as
+                    heat pumps, water heaters, and appliances.
                 </p>
                 <ul>
-                    <li>Improves comfort</li>
-                    <li>Reduces heating and cooling costs</li>
-                    <li>Done during or after assessment</li>
+                    <li>Lower upfront costs</li>
+                    <li>High-efficiency heat pump incentives</li>
+                    <li>Long-term energy savings</li>
                 </ul>
             </div>
 
@@ -243,20 +294,20 @@
         </div>
 
         <div class="program">
-            <h3>No-cost energy and water saving products</h3>
+            <h3>Energy & Water Saving Products</h3>
             <p>
-                Rebates for efficient electric heating and cooling systems.
+                Free upgrades installed during your assessment.
             </p>
 
             <div class="program-details">
                 <p>
-                    Heat pumps are highly efficient systems that replace fossil fuel heating.
-                    Mass Save offers strong rebates depending on eligibility.
+                    During your energy assessment, you may receive free products
+                    that improve efficiency immediately.
                 </p>
                 <ul>
-                    <li>Heating and cooling in one system</li>
-                    <li>Lower long-term costs</li>
-                    <li>Large rebates available</li>
+                    <li>LED light bulbs</li>
+                    <li>Low-flow showerheads and faucet aerators</li>
+                    <li>Advanced power strips</li>
                 </ul>
             </div>
 
@@ -264,40 +315,19 @@
         </div>
 
         <div class="program">
-            <h3>0% financing opportunity through the Mass Save HEAT Loan Program</h3>
+            <h3>0% HEAT Loan Financing</h3>
             <p>
-                Keeps homes warm in winter and cool in summer.
+                Interest-free financing for qualifying energy improvements.
             </p>
 
             <div class="program-details">
                 <p>
-                    Insulation works with air sealing to reduce energy loss and
-                    improve efficiency year-round.
-                </p>
-                <ul>
-                    <li>Attic, wall, and basement insulation</li>
-                    <li>Lower utility bills</li>
-                    <li>Long-term savings</li>
-                </ul>
-            </div>
-
-            <button class="learn-more" onclick="toggleProgram(this)">Learn More</button>
-        </div>
-
-        <div class="program">
-            <h3>0% HEAT Loan</h3>
-            <p>
-                Interest-free financing for energy improvements.
-            </p>
-
-            <div class="program-details">
-                <p>
-                    The HEAT Loan helps cover upfront costs for upgrades like
-                    heat pumps and insulation.
+                    The HEAT Loan helps cover upfront costs for upgrades such as
+                    insulation, heating systems, and heat pumps.
                 </p>
                 <ul>
                     <li>0% interest financing</li>
-                    <li>Makes upgrades more affordable</li>
+                    <li>Flexible repayment terms</li>
                     <li>Available after assessment</li>
                 </ul>
             </div>
@@ -307,18 +337,19 @@
 
     </div>
 </section>
+
 <section>
     <h2>Eligibility Guidelines</h2>
     <p>
-        Eligibility for enhanced Mass Save benefits is based on household size and income.
-        Click below to view the current income thresholds.
+        Some households qualify for enhanced benefits based on income and household size.
+        These benefits may include fully subsidized upgrades and higher rebates. Additional up-front incentives to help cover the cost of projects that must be complete prior to any approved insulation upgrades, such as removal of knob and tube wiring or vermiculite
     </p>
 
     <div class="program" style="margin-top: 30px;">
         <h3>Household Income Eligibility Table</h3>
         <p>
-            These limits help determine if you qualify for additional no-cost services
-            and higher incentives.
+            Use this table to estimate whether your household may qualify for additional
+            no-cost services and expanded incentives.
         </p>
 
         <div class="program-details">
@@ -330,7 +361,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td style="padding:8px;">1</td><td>Up to $51,777</td></tr>
+                   <tr><td style="padding:8px;">1</td><td>Up to $51,777</td></tr>
                     <tr><td style="padding:8px;">2</td><td>Up to $67,709</td></tr>
                     <tr><td style="padding:8px;">3</td><td>Up to $83,641</td></tr>
                     <tr><td style="padding:8px;">4</td><td>Up to $99,573</td></tr>
@@ -354,4 +385,6 @@
         <button class="learn-more" onclick="toggleProgram(this)">View Eligibility</button>
     </div>
 </section>
+
+
 </html>
