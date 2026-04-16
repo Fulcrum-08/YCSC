@@ -212,7 +212,7 @@ section h2 {
 <h2>City Statistics</h2>
 <div class="stats-grid">
     <div class="stat-box">
-        <h3>Wards Completed</h3>
+        <h3>Acres in Conservation</h3>
         <canvas id="pie0"></canvas>
     </div>
     <div class="stat-box">
@@ -304,7 +304,7 @@ const centerText = {
     }
 };
 
-[[80,20],[75,25],[40,60],[66,34],[25,75]].forEach((d,i) => {
+[[10,90],[75,25],[40,60],[66,34],[25,75]].forEach((d,i) => {
     new Chart(document.getElementById("pie"+i), {
         type: "doughnut",
         data: { datasets: [{ data: d, backgroundColor: ["#6a8f5e","#cfe3d4"] }] },
